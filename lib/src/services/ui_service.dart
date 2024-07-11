@@ -10,16 +10,15 @@ enum ToastType { success, error, info }
 
 @singleton
 class UIService {
-  void showMessage({required BuildContext context, required String title, required String message, required ToastType type}) {
+  void showToast({required String text, required ToastType type}) {
     toastification.show(
-      context: context,
       type: type == ToastType.info
           ? ToastificationType.info
           : (type == ToastType.success)
               ? ToastificationType.success
               : ToastificationType.error,
-      title: Text(title),
-      description: Text(message),
+      title: Text(text),
+      // description: Text(message),
       alignment: Alignment.bottomCenter,
       autoCloseDuration: const Duration(seconds: 6),
     );
