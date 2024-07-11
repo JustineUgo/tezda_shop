@@ -11,7 +11,7 @@ class TezdaRouter extends $TezdaRouter implements AutoRouteGuard {
           path: '/home',
           children: [
             AutoRoute(page: HomeRoute.page, path: ''),
-            AutoRoute(page: BookmarkRoute.page, path: 'bookmark'),
+            AutoRoute(page: WishlistRoute.page, path: 'bookmark'),
             AutoRoute(page: ProfileRoute.page, path: 'profile'),
           ],
         ),

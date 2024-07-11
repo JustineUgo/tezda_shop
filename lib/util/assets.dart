@@ -6,6 +6,7 @@ class TezdaIcons {
   static const String personalInfoIcon = 'assets/svgs/personal_info.svg';
   static const String infoIcon = 'assets/svgs/info.svg';
   static const String logoutIcon = 'assets/svgs/logout.svg';
+  static const String emptyIcon = 'assets/svgs/box.svg';
 
   //App
   static String home = 'assets/svgs/app_home.svg';

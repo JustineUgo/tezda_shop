@@ -22,7 +22,7 @@ class _AppScreenState extends State<AppScreen> {
       backgroundColor: TezdaColors.secondary,
       routes: const [
         HomeRoute(),
-        BookmarkRoute(),
+        WishlistRoute(),
         ProfileRoute(),
       ],
       bottomNavigationBuilder: (_, tabsRouter) {
@@ -49,7 +49,7 @@ class _AppScreenState extends State<AppScreen> {
                 icon: Column(
                   children: [
                     SvgPicture.asset(TezdaIcons.bookmarks, color: tabsRouter.activeIndex == 1 ? TezdaColors.primary : TezdaColors.neutral),
-                    Text('Bookmarks',
+                    Text('Wishlist',
                         style:
                             context.textTheme.bodySmall!.copyWith(fontSize: 12, color: tabsRouter.activeIndex == 1 ? TezdaColors.primary : TezdaColors.neutral))
                   ],
