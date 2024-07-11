@@ -7,7 +7,7 @@ part 'product_model.freezed.dart';
 class ProductModel with _$ProductModel{
   const factory ProductModel({
     required int id,
-    required String name,
+    required String title,
     required int price,
     required String description,
     required Category category,

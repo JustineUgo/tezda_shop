@@ -2,17 +2,15 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tezda_shop/routes/router.gr.dart';
+import 'package:tezda_shop/src/models/product/product_model.dart';
 import 'package:tezda_shop/src/shared/image_widget.dart';
 import 'package:tezda_shop/theme/theme.dart';
 import 'package:tezda_shop/util/assets.dart';
 
 class ProductWidget extends StatelessWidget {
-  const ProductWidget({
-    super.key,
-    required this.image,
-  });
+  const ProductWidget({super.key, required this.product});
 
-  final String image;
+  final ProductModel product;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +21,7 @@ class ProductWidget extends StatelessWidget {
           Container(
             margin: const EdgeInsets.all(8.0),
             alignment: Alignment.bottomLeft,
-            child: TezdaImage(image: image),
+            child: TezdaImage(image: product.images.first),
           ),
           Positioned(
             bottom: 20,

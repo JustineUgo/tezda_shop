@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tezda_shop/injection/injection.dart';
 import 'package:tezda_shop/routes/router.dart';
 import 'package:tezda_shop/theme/theme.dart';
+import 'package:toastification/toastification.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,17 +27,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.grey.shade200,
-      child: Center(
-        child: Container(
-          constraints: const BoxConstraints(maxWidth: 600),
-          child: MaterialApp.router(
-            debugShowCheckedModeBanner: false,
-            theme: TezdaTheme.themeData,
-            routerConfig: routerConfig,
-          ),
-        ),
+    return ToastificationWrapper(
+      child: MaterialApp.router(
+        debugShowCheckedModeBanner: false,
+        theme: TezdaTheme.themeData,
+        routerConfig: routerConfig,
       ),
     );
   }

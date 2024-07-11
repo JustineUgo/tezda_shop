@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tezda_shop/config.dart';
 import 'package:tezda_shop/theme/theme.dart';
 import 'package:tezda_shop/util/assets.dart';
+import 'package:tezda_shop/util/extensions.dart';
 
 class TezdaImage extends StatelessWidget {
   const TezdaImage({super.key, required this.image, this.radius, this.height, this.width});
@@ -27,7 +28,7 @@ class TezdaImage extends StatelessWidget {
         : ClipRRect(
             borderRadius: BorderRadius.circular(20),
             child: FancyShimmerImage(
-              imageUrl: image,
+              imageUrl: image.imageUrl(),
               shimmerBaseColor: TezdaColors.neutral,
               shimmerBackColor: TezdaColors.secondary,
               boxFit: BoxFit.cover,

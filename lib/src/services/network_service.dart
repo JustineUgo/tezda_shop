@@ -30,7 +30,7 @@ class DioClient implements NetworkService {
         response = await client.post(path, data: body);
         break;
       case NetworkMethod.get:
-        response = await client.get(path, data: body);
+        response = await client.get(path);
         break;
       case NetworkMethod.put:
         response = await client.put(path, data: body);
@@ -106,15 +106,6 @@ class NetworkInterceptor extends Interceptor {
           throw UnknownException(exception: err, stacktrace: err.stackTrace);
         }
     }
-  }
-
-  @override
-  void onResponse(Response response, ResponseInterceptorHandler handler) {
-    if (response.data != null && response.data['message'] != null) {
-      uiService.showToast(type: ToastType.success, text: response.data['message']);
-    }
-
-    super.onResponse(response, handler);
   }
 
   void unauthenticatedAction(DioException err) {

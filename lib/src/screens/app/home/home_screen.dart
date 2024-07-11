@@ -1,21 +1,42 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tezda_shop/src/screens/app/home/provider/home_provider.dart';
 import 'package:tezda_shop/src/screens/app/home/widgets/product_widget.dart';
 import 'package:tezda_shop/theme/theme.dart';
 
 @RoutePage()
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends ConsumerState<HomeScreen> {
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_scrollListener);
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _scrollListener() {
+    if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
+      ref.read(productListProvider.notifier).loadMore();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    String image =
-        'https://external-content.duckduckgo.com/iu?u=https%3A%2F%2Fimages.wallpapersden.com%2Fimage%2Fdownload%2Fwinking-anime-girl_a2xtZ2yUmZqaraWkpJRobWlmrWlla2Y.jpg&f=1&nofb=1&ipt=df879dd8d9dd11a23bdb40523b25a88353e5052cf2cb6537b3038e0df63afc21&ipo=images';
+    final productsState = ref.watch(productListProvider);
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -45,13 +66,34 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             const SizedBox(height: 10),
             Expanded(
-              child: GridView.count(
-                crossAxisCount: 2,
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                children: List.generate(20, (index) {
-                  return ProductWidget(image: image);
-                }),
-              ),
+              child: switch (productsState) {
+                AsyncData(:ProductListData value) => RefreshIndicator(
+                    onRefresh: () => ref.refresh(productListProvider.future),
+                    child: GridView.count(
+                      controller: _scrollController,
+                      crossAxisCount: 2,
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      children: List.generate(value.products.length, (index) {
+                        if (!value.isFinished && index == value.products.length - 1) return const Center(child: CircularProgressIndicator());
+                        return ProductWidget(product: value.products[index]);
+                      }),
+                    ),
+                  ),
+                AsyncError() => Expanded(
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(Icons.error, color: TezdaColors.destructiveAccent),
+                          const Text('An error occurred'),
+                          const SizedBox(height: 20),
+                          SizedBox(width: 150, child: ElevatedButton(onPressed: () => ref.refresh(productListProvider.future), child: const Text('Try again'))),
+                        ],
+                      ),
+                    ),
+                  ),
+                _ => const Center(child: CircularProgressIndicator()),
+              },
             ),
           ],
         ),
