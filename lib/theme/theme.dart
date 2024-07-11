@@ -14,6 +14,7 @@ class TezdaColors {
   static const Color neutral = Color(0xFF9AA6AC);
   static const Color destructiveAccent = Color(0xFFE6483D);
   static const Color successAccent = Color(0xFF32C164);
+  static const Color yellow = Color(0xFFFCD240);
 }
 
 class TezdaTheme {
