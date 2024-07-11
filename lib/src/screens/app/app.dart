@@ -3,6 +3,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:tezda_shop/routes/router.gr.dart';
 import 'package:tezda_shop/theme/theme.dart';
 import 'package:tezda_shop/util/assets.dart';
 
@@ -18,17 +19,17 @@ class _AppScreenState extends State<AppScreen> {
   @override
   Widget build(BuildContext context) {
     return AutoTabsScaffold(
-      backgroundColor: EcoColors.secondary,
+      backgroundColor: TezdaColors.secondary,
       routes: const [
-        // HomeRoute(),
-        // BookingRoute(),
-        // ProfileRoute(),
+        HomeRoute(),
+        BookmarkRoute(),
+        ProfileRoute(),
       ],
       bottomNavigationBuilder: (_, tabsRouter) {
         return BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
-          selectedItemColor: EcoColors.primary,
-          unselectedItemColor: EcoColors.neutral,
+          selectedItemColor: TezdaColors.primary,
+          unselectedItemColor: TezdaColors.neutral,
           showSelectedLabels: false,
           currentIndex: tabsRouter.activeIndex,
           onTap: tabsRouter.setActiveIndex,
@@ -37,27 +38,30 @@ class _AppScreenState extends State<AppScreen> {
                 label: '',
                 icon: Column(
                   children: [
-                    SvgPicture.asset(EcoIcons.home, color: tabsRouter.activeIndex == 0 ? EcoColors.primary : EcoColors.neutral),
+                    SvgPicture.asset(TezdaIcons.home, color: tabsRouter.activeIndex == 0 ? TezdaColors.primary : TezdaColors.neutral),
                     Text('Home',
-                        style: context.textTheme.bodySmall!.copyWith(fontSize: 12, color: tabsRouter.activeIndex == 0 ? EcoColors.primary : EcoColors.neutral))
+                        style:
+                            context.textTheme.bodySmall!.copyWith(fontSize: 12, color: tabsRouter.activeIndex == 0 ? TezdaColors.primary : TezdaColors.neutral))
                   ],
                 )),
             BottomNavigationBarItem(
                 label: '',
                 icon: Column(
                   children: [
-                    SvgPicture.asset(EcoIcons.bookmarks, color: tabsRouter.activeIndex == 1 ? EcoColors.primary : EcoColors.neutral),
+                    SvgPicture.asset(TezdaIcons.bookmarks, color: tabsRouter.activeIndex == 1 ? TezdaColors.primary : TezdaColors.neutral),
                     Text('Bookmarks',
-                        style: context.textTheme.bodySmall!.copyWith(fontSize: 12, color: tabsRouter.activeIndex == 1 ? EcoColors.primary : EcoColors.neutral))
+                        style:
+                            context.textTheme.bodySmall!.copyWith(fontSize: 12, color: tabsRouter.activeIndex == 1 ? TezdaColors.primary : TezdaColors.neutral))
                   ],
                 )),
             BottomNavigationBarItem(
                 label: '',
                 icon: Column(
                   children: [
-                    SvgPicture.asset(EcoIcons.profile, color: tabsRouter.activeIndex == 3 ? EcoColors.primary : EcoColors.neutral),
+                    SvgPicture.asset(TezdaIcons.profile, color: tabsRouter.activeIndex == 3 ? TezdaColors.primary : TezdaColors.neutral),
                     Text('Profile',
-                        style: context.textTheme.bodySmall!.copyWith(fontSize: 12, color: tabsRouter.activeIndex == 3 ? EcoColors.primary : EcoColors.neutral)),
+                        style: context.textTheme.bodySmall!
+                            .copyWith(fontSize: 12, color: tabsRouter.activeIndex == 3 ? TezdaColors.primary : TezdaColors.neutral)),
                   ],
                 )),
           ],

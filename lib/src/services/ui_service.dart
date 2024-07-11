@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:injectable/injectable.dart';
@@ -43,7 +42,7 @@ class UIService {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          backgroundColor: color ?? EcoColors.light,
+          backgroundColor: color ?? TezdaColors.light,
           icon: SvgPicture.asset(icon),
           contentPadding: const EdgeInsets.fromLTRB(Sizes.baseSingleHalf, 0, Sizes.baseSingleHalf, Sizes.baseTriple),
           title: Text(title, style: context.textTheme.headlineLarge),
@@ -73,7 +72,7 @@ class UIService {
                       Expanded(
                         child: ElevatedButton(
                           style: ButtonStyle(
-                              backgroundColor: WidgetStateProperty.all(status == DialogStatus.success ? EcoColors.primary : EcoColors.destructiveAccent)),
+                              backgroundColor: WidgetStateProperty.all(status == DialogStatus.success ? TezdaColors.primary : TezdaColors.destructiveAccent)),
                           onPressed: () {
                             Navigator.of(context).pop();
                             onConfirm();
@@ -90,5 +89,4 @@ class UIService {
       },
     );
   }
-
 }
