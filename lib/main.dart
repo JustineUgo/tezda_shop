@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tezda_shop/injection/injection.dart';
+import 'package:tezda_shop/routes/router.dart';
+import 'package:tezda_shop/theme/theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -11,14 +13,16 @@ void main() async {
   final sharedPreferences = await SharedPreferences.getInstance();
   configureDependencies(sharedPreferences);
   runApp(
-    const ProviderScope(
+    ProviderScope(
       child: MyApp(),
     ),
   );
 }
 
+// ignore: must_be_immutable
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
+  var routerConfig = getIt<TezdaRouter>().config();
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +33,8 @@ class MyApp extends StatelessWidget {
           constraints: const BoxConstraints(maxWidth: 600),
           child: MaterialApp.router(
             debugShowCheckedModeBanner: false,
+            theme: TezdaTheme.themeData,
+            routerConfig: routerConfig,
           ),
         ),
       ),

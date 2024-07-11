@@ -73,7 +73,7 @@ class UIService {
                       Expanded(
                         child: ElevatedButton(
                           style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(status == DialogStatus.success ? EcoColors.primary : EcoColors.destructiveAccent)),
+                              backgroundColor: WidgetStateProperty.all(status == DialogStatus.success ? EcoColors.primary : EcoColors.destructiveAccent)),
                           onPressed: () {
                             Navigator.of(context).pop();
                             onConfirm();

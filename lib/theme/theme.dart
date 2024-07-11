@@ -18,7 +18,7 @@ class EcoColors {
   static const Color successAccent = Color(0xFF32C164);
 }
 
-class EcoTaxiTheme {
+class TezdaTheme {
   static const _ecoTextStyle = TextStyle(fontFamily: 'san_franscisco', color: EcoColors.inverted);
   static final TextTheme _textTheme = TextTheme(
     titleLarge: _ecoTextStyle.copyWith(fontSize: 22, fontWeight: FontWeight.w700),
