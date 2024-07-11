@@ -11,7 +11,9 @@
 import 'package:dio/dio.dart' as _i3;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
-import 'package:tezda_shop/injection/module/service_module.dart' as _i4;
+import 'package:shared_preferences/shared_preferences.dart' as _i5;
+import 'package:tezda_shop/injection/module/service_module.dart' as _i6;
+import 'package:tezda_shop/src/services/storage_service.dart' as _i4;
 
 extension GetItInjectableX on _i1.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -26,8 +28,10 @@ extension GetItInjectableX on _i1.GetIt {
     );
     final serviceModule = _$ServiceModule();
     gh.singleton<_i3.Dio>(() => serviceModule.dioClient);
+    gh.singleton<_i4.StorageService>(
+        () => _i4.SharedPreferenceService(gh<_i5.SharedPreferences>()));
     return this;
   }
 }
 
-class _$ServiceModule extends _i4.ServiceModule {}
+class _$ServiceModule extends _i6.ServiceModule {}
