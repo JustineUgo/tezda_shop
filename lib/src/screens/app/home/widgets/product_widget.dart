@@ -8,9 +8,10 @@ import 'package:tezda_shop/theme/theme.dart';
 import 'package:tezda_shop/util/assets.dart';
 
 class ProductWidget extends StatelessWidget {
-  const ProductWidget({super.key, required this.product});
+  const ProductWidget({super.key, required this.product, required this.isFavourite});
 
   final ProductModel product;
+  final bool isFavourite;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +42,7 @@ class ProductWidget extends StatelessWidget {
                 ],
               ),
               child: Center(
-                child: Text('\$400', style: context.textTheme.headlineLarge),
+                child: Text('\$${product.price}', style: context.textTheme.headlineLarge),
               ),
             ),
           ),
@@ -54,7 +55,7 @@ class ProductWidget extends StatelessWidget {
                 shape: BoxShape.circle,
                 color: TezdaColors.light,
               ),
-              child: SvgPicture.asset(TezdaIcons.unheart),
+              child: SvgPicture.asset(isFavourite ? TezdaIcons.heart : TezdaIcons.unheart),
             ),
           ),
         ],

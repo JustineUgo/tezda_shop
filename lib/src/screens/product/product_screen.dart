@@ -27,7 +27,7 @@ class _ProductScreenState extends State<ProductScreen> {
           children: [
             const SizedBox(height: 20),
             InkWell(
-              onTap: () => context.router.removeLast,
+              onTap: () => context.router.removeLast(),
               child: Container(
                 margin: const EdgeInsets.only(left: 20),
                 padding: const EdgeInsets.all(8),
