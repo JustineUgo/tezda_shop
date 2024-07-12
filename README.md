@@ -11,8 +11,6 @@ Tezda Shop is a mobile e-commerce application developed as part of an immersive 
 - [Usage](#usage)
 - [API](#api)
 - [Screenshots](#screenshots)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Features
 
@@ -55,30 +53,21 @@ The project utilizes the following dependencies:
 
 To get started with the project, follow these steps:
 
-1. **Clone the repository**:
+2. Clone the code:
    ```bash
-   git clone https://github.com/yourusername/tezda_shop.git
-   cd tezda_shop
-  ```  
+   $ git clone https://github.com/yourusername/tezda_shop.git
+   $ cd tezda_shop
+    ```
 
-2. **Install dependencies:**:
+2. Run the following commands:
    ```bash
-   flutter pub get
-  ```
-
-3. **Generate code:**:
+   $ make get
+   $ make codegen
+    ```
+3. Run app:
    ```bash
-   make codegen
-  ```
-  or
-  ```bash
-   flutter packages pub run build_runner build --delete-conflicting-outputs
-  ```
-
-3. **Run the app:**:
-   ```bash
-   flutter run
-  ```
+   $ flutter run
+    ```
 
 ## Usage
 
@@ -105,35 +94,36 @@ The app fetches product data from the Fake API provided by Platzi:
 - [Fake API](https://fakeapi.platzi.com/)
 
 ## Screenshots
-
 Include screenshots of your application to showcase its features and UI.
 
   
+************               |  **********               | **********         
 :-------------------------:|:-------------------------:|:-------------------------:
 ![](https://github.com/JustineUgo/tezda_shop/blob/master/assets/images/1.jpg)|![](https://github.com/JustineUgo/tezda_shop/blob/master/assets/images/2.jpg)|![](https://github.com/JustineUgo/tezda_shop/blob/master/assets/images/3.jpg)|
 
   
+************               |  **********               | **********         
 :-------------------------:|:-------------------------:|:-------------------------:
 ![](https://github.com/JustineUgo/tezda_shop/blob/master/assets/images/4.jpg)|![](https://github.com/JustineUgo/tezda_shop/blob/master/assets/images/5.jpg)|![](https://github.com/JustineUgo/tezda_shop/blob/master/assets/images/6.jpg)|
 
 
   
+************               |  **********               | **********         
 :-------------------------:|:-------------------------:|:-------------------------:
 ![](https://github.com/JustineUgo/tezda_shop/blob/master/assets/images/7.jpg)|![](https://github.com/JustineUgo/tezda_shop/blob/master/assets/images/8.jpg)|![](https://github.com/JustineUgo/tezda_shop/blob/master/assets/images/9.jpg)|
 
 
   
+************               |  **********               | **********         
 :-------------------------:|:-------------------------:|:-------------------------:
 ![](https://github.com/JustineUgo/tezda_shop/blob/master/assets/images/10.jpg)|![](https://github.com/JustineUgo/tezda_shop/blob/master/assets/images/11.jpg)|![](https://github.com/JustineUgo/tezda_shop/blob/master/assets/images/12.jpg)|
 
 
   
-:-------------------------:|:-------------------------:|:-------------------------:
-![](https://github.com/JustineUgo/tezda_shop/blob/master/assets/images/13.jpg)|![](https://github.com/JustineUgo/tezda_shop/blob/master/assets/images/14.jpg)|![](https://github.com/JustineUgo/tezda_shop/blob/master/assets/images/15.jpg)|
+************               |  **********               |  **********               |  **********                        
+:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
+![](https://github.com/JustineUgo/tezda_shop/blob/master/assets/images/13.jpg)|![](https://github.com/JustineUgo/tezda_shop/blob/master/assets/images/14.jpg)|![](https://github.com/JustineUgo/tezda_shop/blob/master/assets/images/15.jpg)|![](https://github.com/JustineUgo/tezda_shop/blob/master/assets/images/16.jpg)|
 
 
-  
-:-------------------------:
-![](https://github.com/JustineUgo/tezda_shop/blob/master/assets/images/16.jpg)|
 
 
