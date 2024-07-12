@@ -15,6 +15,7 @@ dependencies:
   fancy_shimmer_image: ^2.0.3
   flutter:
     sdk: flutter
+  flutter_dotenv: ^5.1.0
   flutter_riverpod: ^2.5.1
   flutter_svg: ^2.0.10+1
   freezed_annotation: ^2.4.3
@@ -53,6 +54,7 @@ flutter:
     - assets/images/
     - assets/fonts/
     - assets/svgs/
+    - .env
 
   fonts:
     - family: san_franscisco

@@ -1,6 +1,8 @@
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 
@@ -9,7 +11,7 @@ class EcoImageService {
   final ImagePicker picker;
 
   EcoImageService(this.picker);
-  Future<File?> pickImage(BuildContext context,{required ImageSource source}) async {
+  Future<String?> pickImage(BuildContext context, {required ImageSource source}) async {
     final pickedFile = await picker.pickImage(source: source);
 
     if (pickedFile != null) {
@@ -37,9 +39,29 @@ class EcoImageService {
           },
         );
       } else {
-        return file;
+        String? apiKey = dotenv.env['IMAGE_API'];
+
+        final Dio dio = Dio();
+
+        try {
+          final FormData formData = FormData.fromMap({
+            'image': await MultipartFile.fromFile(file.path),
+          });
+
+          final response = await dio.post(
+            'https://api.imgbb.com/1/upload?expiration=600&key=$apiKey',
+            data: formData,
+          );
+
+          if (response.statusCode == 200) {
+            return response.data['data']['url'];
+          } 
+        } catch (e) {
+          e;
+        }
+
+        return null;
       }
-    } 
-    
+    }
   }
 }

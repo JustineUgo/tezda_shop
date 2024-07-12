@@ -1,5 +1,4 @@
 // ignore_for_file: avoid_build_context_in_providers
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -25,8 +24,17 @@ class ProfileInfo extends _$ProfileInfo {
   }
 
   Future changePicture(BuildContext context, {required ImageSource source}) async {
-    File? image = await _imageService.pickImage(context, source: source);
-    print(image);
+    final previousState = await future;
+    state = const AsyncLoading();
+    try {
+      String? image = await _imageService.pickImage(context, source: source);
+      if (image != null) {
+        state = AsyncData(previousState);
+        updateProfile(avatar: image);
+      }
+    } catch (e) {
+      state = AsyncData(previousState);
+    }
   }
 
   Future updateProfile({String? name, String? avatar, String? email}) async {

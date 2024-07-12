@@ -72,7 +72,7 @@ class AuthRepoImpl implements AuthRepo {
       body: {
         if (email != null && email.isNotEmpty) "email": email,
         if (name != null && name.isNotEmpty) "name": name,
-        if (avatar != null && avatar.isNotEmpty) "avatar": email,
+        if (avatar != null && avatar.isNotEmpty) "avatar": avatar,
       },
     );
     storage.store(key: StorageService.userKey, value: result);
