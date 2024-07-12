@@ -6,6 +6,7 @@ import 'package:tezda_shop/src/screens/app/home/provider/home_provider.dart';
 import 'package:tezda_shop/src/screens/app/home/widgets/brand_section.dart';
 import 'package:tezda_shop/src/screens/app/home/widgets/product_error_section.dart';
 import 'package:tezda_shop/src/screens/app/home/widgets/product_list_section.dart';
+import 'package:tezda_shop/src/screens/app/wishlist/provider/wishlist_provider.dart';
 import 'package:tezda_shop/theme/theme.dart';
 
 @RoutePage()
@@ -72,7 +73,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                             ? const Center(
                                 child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [Text('There are no products ')]),
                               )
-                            : ProductListSection(onRefresh: () => ref.refresh(homeInfoProvider.future), scrollController: _scrollController, value: value),
+                            : ProductListSection(
+                                onRefresh: () => ref.refresh(homeInfoProvider.future),
+                                onFavourite: (id) => ref.read(wishlistInfoProvider.notifier).updateWishlist(id),
+                                scrollController: _scrollController,
+                                value: value,
+                              ),
                       ),
                     ],
                   ),

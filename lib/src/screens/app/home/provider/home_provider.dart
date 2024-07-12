@@ -2,11 +2,13 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:tezda_shop/injection/injection.dart';
 import 'package:tezda_shop/src/models/product/product_model.dart';
 import 'package:tezda_shop/src/repositories/product_repo.dart';
+import 'package:tezda_shop/src/services/storage_service.dart';
 part 'home_provider.g.dart';
 
 @riverpod
 class HomeInfo extends _$HomeInfo {
   final _repo = getIt<ProductRepo>();
+  final _storage = getIt<StorageService>();
   int _offset = 10;
   int? _categoryFilterId;
   List<int> _wishlist = [];
@@ -15,7 +17,9 @@ class HomeInfo extends _$HomeInfo {
   Future<HomeInfoData> build() async {
     _offset = 0;
     _categoryFilterId = null;
-    _wishlist = [253, 255, 256, 265];
+    final savedWishlist = _storage.retrieveList(key: StorageService.wishlistKey) ?? [];
+    _wishlist = savedWishlist.map((id) => int.parse(id)).toList();
+
     state = const AsyncLoading();
     return _loadProducts();
   }
@@ -33,7 +37,7 @@ class HomeInfo extends _$HomeInfo {
           wishlist: _wishlist,
           products: previousState.products,
           categories: previousState.categories,
-        categoryFilter: _categoryFilterId,
+          categoryFilter: _categoryFilterId,
         ),
       );
     } else {
@@ -43,7 +47,7 @@ class HomeInfo extends _$HomeInfo {
           wishlist: _wishlist,
           products: [...previousState.products, ...newProducts],
           categories: previousState.categories,
-        categoryFilter: _categoryFilterId,
+          categoryFilter: _categoryFilterId,
         ),
       );
     }
@@ -58,7 +62,7 @@ class HomeInfo extends _$HomeInfo {
       wishlist: _wishlist,
       categories: categories.map((json) => Category.fromJson(json)).toList(),
       products: products.map((json) => ProductModel.fromJson(json)).toList(),
-        categoryFilter: _categoryFilterId,
+      categoryFilter: _categoryFilterId,
     );
   }
 
@@ -78,6 +82,19 @@ class HomeInfo extends _$HomeInfo {
         categories: previousState.categories,
         products: products.map((json) => ProductModel.fromJson(json)).toList(),
         categoryFilter: _categoryFilterId,
+      ),
+    );
+  }
+
+  Future<void> updateWishlist(List<int> wishlist) async {
+    final previousState = await future;
+    state = AsyncData(
+      HomeInfoData(
+        isFinished: previousState.isFinished,
+        wishlist: wishlist,
+        categories: previousState.categories,
+        products: previousState.products,
+        categoryFilter: previousState.categoryFilter,
       ),
     );
   }

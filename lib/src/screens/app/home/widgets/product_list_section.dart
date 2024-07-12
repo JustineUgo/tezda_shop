@@ -9,12 +9,13 @@ class ProductListSection extends StatelessWidget {
     super.key,
     required this.scrollController,
     required this.value,
-    required this.onRefresh,
+    required this.onRefresh, required this.onFavourite,
   });
 
   final ScrollController scrollController;
   final HomeInfoData value;
   final Future<void> Function() onRefresh;
+  final Function(int) onFavourite;
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +30,7 @@ class ProductListSection extends StatelessWidget {
           ProductModel product = value.products[index];
           return ProductWidget(
             isFavourite: value.wishlist.contains(product.id),
+            onFavourite: (id) => onFavourite(id),
             product: product,
           );
         }),
