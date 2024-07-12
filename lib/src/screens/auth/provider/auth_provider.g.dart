@@ -1,25 +1,25 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'home_provider.dart';
+part of 'auth_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$homeInfoHash() => r'b948d21c6d9670c9b67ff02c51a2cdc2ddef5288';
+String _$authInfoHash() => r'9eace2badfbb97d08fecf04d7173edb9f5895160';
 
-/// See also [HomeInfo].
-@ProviderFor(HomeInfo)
-final homeInfoProvider =
-    AutoDisposeAsyncNotifierProvider<HomeInfo, HomeInfoData>.internal(
-  HomeInfo.new,
-  name: r'homeInfoProvider',
+/// See also [AuthInfo].
+@ProviderFor(AuthInfo)
+final authInfoProvider =
+    AutoDisposeAsyncNotifierProvider<AuthInfo, AuthInfoData>.internal(
+  AuthInfo.new,
+  name: r'authInfoProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$homeInfoHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$authInfoHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$HomeInfo = AutoDisposeAsyncNotifier<HomeInfoData>;
+typedef _$AuthInfo = AutoDisposeAsyncNotifier<AuthInfoData>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

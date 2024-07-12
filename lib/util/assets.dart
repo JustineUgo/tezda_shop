@@ -13,3 +13,7 @@ class TezdaIcons {
   static String bookmarks = 'assets/svgs/app_bookmark.svg';
   static String profile = 'assets/svgs/app_profile.svg';
 }
+
+class TezdaImages {
+  static const String icon = 'assets/images/icon.png';
+}

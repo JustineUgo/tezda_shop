@@ -8,7 +8,10 @@ class UserModel with _$UserModel{
     required int id,
     required String name,
     required String email,
+    required String avatar,
     required String role,
+    required DateTime creationAt,
+    required DateTime updatedAt,
   }) = _UserModel;
 
   factory UserModel.fromJson(Map<String, Object?> json) => _$UserModelFromJson(json);

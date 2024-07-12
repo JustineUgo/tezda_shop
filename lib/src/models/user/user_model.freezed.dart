@@ -23,7 +23,10 @@ mixin _$UserModel {
   int get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
+  String get avatar => throw _privateConstructorUsedError;
   String get role => throw _privateConstructorUsedError;
+  DateTime get creationAt => throw _privateConstructorUsedError;
+  DateTime get updatedAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -36,7 +39,14 @@ abstract class $UserModelCopyWith<$Res> {
   factory $UserModelCopyWith(UserModel value, $Res Function(UserModel) then) =
       _$UserModelCopyWithImpl<$Res, UserModel>;
   @useResult
-  $Res call({int id, String name, String email, String role});
+  $Res call(
+      {int id,
+      String name,
+      String email,
+      String avatar,
+      String role,
+      DateTime creationAt,
+      DateTime updatedAt});
 }
 
 /// @nodoc
@@ -55,7 +65,10 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
     Object? id = null,
     Object? name = null,
     Object? email = null,
+    Object? avatar = null,
     Object? role = null,
+    Object? creationAt = null,
+    Object? updatedAt = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -70,10 +83,22 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
+      avatar: null == avatar
+          ? _value.avatar
+          : avatar // ignore: cast_nullable_to_non_nullable
+              as String,
       role: null == role
           ? _value.role
           : role // ignore: cast_nullable_to_non_nullable
               as String,
+      creationAt: null == creationAt
+          ? _value.creationAt
+          : creationAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      updatedAt: null == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ) as $Val);
   }
 }
@@ -86,7 +111,14 @@ abstract class _$$UserModelImplCopyWith<$Res>
       __$$UserModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, String name, String email, String role});
+  $Res call(
+      {int id,
+      String name,
+      String email,
+      String avatar,
+      String role,
+      DateTime creationAt,
+      DateTime updatedAt});
 }
 
 /// @nodoc
@@ -103,7 +135,10 @@ class __$$UserModelImplCopyWithImpl<$Res>
     Object? id = null,
     Object? name = null,
     Object? email = null,
+    Object? avatar = null,
     Object? role = null,
+    Object? creationAt = null,
+    Object? updatedAt = null,
   }) {
     return _then(_$UserModelImpl(
       id: null == id
@@ -118,10 +153,22 @@ class __$$UserModelImplCopyWithImpl<$Res>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
+      avatar: null == avatar
+          ? _value.avatar
+          : avatar // ignore: cast_nullable_to_non_nullable
+              as String,
       role: null == role
           ? _value.role
           : role // ignore: cast_nullable_to_non_nullable
               as String,
+      creationAt: null == creationAt
+          ? _value.creationAt
+          : creationAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      updatedAt: null == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
@@ -133,7 +180,10 @@ class _$UserModelImpl implements _UserModel {
       {required this.id,
       required this.name,
       required this.email,
-      required this.role});
+      required this.avatar,
+      required this.role,
+      required this.creationAt,
+      required this.updatedAt});
 
   factory _$UserModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserModelImplFromJson(json);
@@ -145,11 +195,17 @@ class _$UserModelImpl implements _UserModel {
   @override
   final String email;
   @override
+  final String avatar;
+  @override
   final String role;
+  @override
+  final DateTime creationAt;
+  @override
+  final DateTime updatedAt;
 
   @override
   String toString() {
-    return 'UserModel(id: $id, name: $name, email: $email, role: $role)';
+    return 'UserModel(id: $id, name: $name, email: $email, avatar: $avatar, role: $role, creationAt: $creationAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -160,12 +216,18 @@ class _$UserModelImpl implements _UserModel {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.email, email) || other.email == email) &&
-            (identical(other.role, role) || other.role == role));
+            (identical(other.avatar, avatar) || other.avatar == avatar) &&
+            (identical(other.role, role) || other.role == role) &&
+            (identical(other.creationAt, creationAt) ||
+                other.creationAt == creationAt) &&
+            (identical(other.updatedAt, updatedAt) ||
+                other.updatedAt == updatedAt));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, email, role);
+  int get hashCode => Object.hash(
+      runtimeType, id, name, email, avatar, role, creationAt, updatedAt);
 
   @JsonKey(ignore: true)
   @override
@@ -186,7 +248,10 @@ abstract class _UserModel implements UserModel {
       {required final int id,
       required final String name,
       required final String email,
-      required final String role}) = _$UserModelImpl;
+      required final String avatar,
+      required final String role,
+      required final DateTime creationAt,
+      required final DateTime updatedAt}) = _$UserModelImpl;
 
   factory _UserModel.fromJson(Map<String, dynamic> json) =
       _$UserModelImpl.fromJson;
@@ -198,7 +263,13 @@ abstract class _UserModel implements UserModel {
   @override
   String get email;
   @override
+  String get avatar;
+  @override
   String get role;
+  @override
+  DateTime get creationAt;
+  @override
+  DateTime get updatedAt;
   @override
   @JsonKey(ignore: true)
   _$$UserModelImplCopyWith<_$UserModelImpl> get copyWith =>

@@ -1,7 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tezda_shop/injection/injection.dart';
+import 'package:tezda_shop/routes/router.gr.dart';
 import 'package:tezda_shop/src/screens/app/profile/widgets/profile_tile_widget.dart';
+import 'package:tezda_shop/src/services/storage_service.dart';
+import 'package:tezda_shop/src/services/ui_service.dart';
 import 'package:tezda_shop/theme/theme.dart';
 import 'package:tezda_shop/util/assets.dart';
 
@@ -49,9 +53,37 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     children: [
                       Text('General', style: context.textTheme.headlineLarge),
                       const SizedBox(height: 20),
-                      const ProfileTile(text: 'Personal Information', icon: TezdaIcons.personalInfoIcon, trailing: Icon(CupertinoIcons.right_chevron)),
-                      const ProfileTile(text: 'Version', icon: TezdaIcons.infoIcon, trailing: Text('Version 1.0')),
-                      const ProfileTile(text: 'Logout', icon: TezdaIcons.logoutIcon, color: TezdaColors.destructiveAccent),
+                      ProfileTile(
+                        text: 'Personal Information',
+                        icon: TezdaIcons.personalInfoIcon,
+                        trailing: Icon(CupertinoIcons.right_chevron),
+                        onTap: () {},
+                      ),
+                      ProfileTile(
+                        text: 'Version',
+                        icon: TezdaIcons.infoIcon,
+                        trailing: Text('Version 1.0'),
+                        onTap: () {},
+                      ),
+                      ProfileTile(
+                        text: 'Logout',
+                        icon: TezdaIcons.logoutIcon,
+                        color: TezdaColors.destructiveAccent,
+                        onTap: () => getIt<UIService>().showConfirmationDialog(
+                          context,
+                          icon: TezdaIcons.logoutIcon,
+                          title: 'Do you want to log out?',
+                          body: 'You can login again',
+                          status: DialogStatus.warning,
+                          cancelText: 'No, cancel',
+                          onCancel: () {},
+                          confirmText: 'Yes',
+                          onConfirm: () {
+                            getIt<StorageService>().cleanStorage();
+                            context.router.replaceAll([const AuthRoute()]);
+                          },
+                        ),
+                      ),
                     ],
                   ),
                 )

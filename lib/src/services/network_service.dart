@@ -4,6 +4,9 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:tezda_shop/errors/exceptions.dart';
+import 'package:tezda_shop/injection/injection.dart';
+import 'package:tezda_shop/routes/router.dart';
+import 'package:tezda_shop/routes/router.gr.dart';
 import 'package:tezda_shop/src/services/storage_service.dart';
 import 'package:tezda_shop/src/services/ui_service.dart';
 
@@ -54,6 +57,7 @@ class NetworkInterceptor extends Interceptor {
   final UIService uiService;
   NetworkInterceptor({required this.storageService, required this.uiService});
 
+
   @override
   Future<void> onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
     String? token = await storageService.retrieve(key: StorageService.userAccessTokenKey);
@@ -83,12 +87,14 @@ class NetworkInterceptor extends Interceptor {
           case 406:
           case 422:
             uiService.showToast(type: ToastType.error, text: err.response?.data["error"]);
+            uiService.showToast(type: ToastType.error, text: err.response?.data["message"]);
             throw UserException(error: err.response?.data["error"], statusCode: err.response?.statusCode ?? 0);
         }
         if (err.response?.data == null) {
           uiService.showToast(type: ToastType.error, text: 'An unexpected error occurred. Please try again later.');
         } else {
           uiService.showToast(type: ToastType.error, text: err.response?.data["error"]);
+          uiService.showToast(type: ToastType.error, text: err.response?.data["message"]);
         }
 
         throw UnknownException(exception: err.error, stacktrace: err.stackTrace);
@@ -96,12 +102,14 @@ class NetworkInterceptor extends Interceptor {
       default:
         if (err.error is HandshakeException || err.error is SocketException || err.error is TimeoutException) {
           uiService.showToast(type: ToastType.error, text: err.response?.data["error"]);
+          uiService.showToast(type: ToastType.error, text: err.response?.data["message"]);
           throw ConnectionException(statusCode: err.response?.statusCode ?? 0, cause: err.type);
         } else {
           if (err.response?.data == null) {
             uiService.showToast(type: ToastType.error, text: 'An unexpected error occurred. Please try again later.');
           } else {
             uiService.showToast(type: ToastType.error, text: err.response?.data["error"]);
+            uiService.showToast(type: ToastType.error, text: err.response?.data["message"]);
           }
           throw UnknownException(exception: err, stacktrace: err.stackTrace);
         }
@@ -109,9 +117,8 @@ class NetworkInterceptor extends Interceptor {
   }
 
   void unauthenticatedAction(DioException err) {
-    // TODO: unauthenticate user
-    // getIt<TezdaRouter>().replaceAll([const OnboardingRoute()]);
+    getIt<TezdaRouter>().replaceAll([const AuthRoute()]);
+    uiService.showToast(type: ToastType.error, text: err.response?.data["message"]);
     throw UserException(error: err.response?.data, statusCode: err.response?.statusCode ?? 0);
   }
-
 }
