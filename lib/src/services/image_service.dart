@@ -49,7 +49,7 @@ class EcoImageService {
           });
 
           final response = await dio.post(
-            'https://api.imgbb.com/1/upload?expiration=600&key=$apiKey',
+            'https://api.imgbb.com/1/upload?key=$apiKey',
             data: formData,
           );
 
