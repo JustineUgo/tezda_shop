@@ -21,6 +21,15 @@ class Helpers {
     return null;
   }
 
+  static String? emailValidator(BuildContext context, String? value) {
+    
+    if (!Helpers.emailRegExp.hasMatch(value??'') && (value??'').isNotEmpty) {
+      return 'Please, enter a valid email address';
+    }
+    
+    return null;
+  }
+
   static String? fieldValidator(BuildContext context, String? value) {
     if (value == null || value.isEmpty) {
       return 'Field cannnot be empty';

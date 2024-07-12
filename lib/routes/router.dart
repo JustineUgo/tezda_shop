@@ -19,6 +19,7 @@ class TezdaRouter extends $TezdaRouter implements AutoRouteGuard {
           ],
         ),
         AutoRoute(page: ProductRoute.page, path: '/product'),
+        AutoRoute(page: ProfileUpdateRoute.page, path: '/profile-update'),
         RedirectRoute(path: '*', redirectTo: '/'),
       ];
 

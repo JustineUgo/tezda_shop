@@ -24,6 +24,53 @@ class UIService {
     );
   }
 
+  Future<void> showEcoBottomSheet(BuildContext context, {String? title, required Widget child, bool enableDecoration = false}) async {
+    await showModalBottomSheet(
+      context: context,
+      barrierColor: enableDecoration ? TezdaColors.dark.withOpacity(0) : null,
+      isScrollControlled: true,
+      builder: (context) => Wrap(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              color: TezdaColors.light,
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(40)),
+              boxShadow: enableDecoration
+                  ? [
+                      BoxShadow(
+                        color: TezdaColors.neutral.withOpacity(.3),
+                        spreadRadius: 8,
+                        blurRadius: 8,
+                        offset: const Offset(0, 3),
+                      ),
+                    ]
+                  : null,
+            ),
+            padding: const EdgeInsets.symmetric(horizontal: Sizes.baseDouble),
+            child: Column(
+              children: [
+                const SizedBox(height: 20),
+                if (title != null)
+                  Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(title, style: context.textTheme.headlineLarge),
+                        ],
+                      ),
+                    ],
+                  ),
+                const SizedBox(height: Sizes.baseSingleQuarter),
+                child,
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   void showConfirmationDialog(
     BuildContext context, {
     required String icon,

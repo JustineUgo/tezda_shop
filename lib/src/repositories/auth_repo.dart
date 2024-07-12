@@ -8,6 +8,7 @@ abstract class AuthRepo {
   Future<dynamic> register({required String name, required String email, required String password});
   Future<dynamic> login({required String email, required String password});
   Future getUser();
+  Future<dynamic> updateUser(int id, {String? email, String? name, String? avatar});
 }
 
 @Singleton(as: AuthRepo)
@@ -61,5 +62,20 @@ class AuthRepoImpl implements AuthRepo {
     final response = await request.makeRequest(TezdaUrls.profile, mode: NetworkMethod.get);
     response;
     storage.store(key: StorageService.userKey, value: response);
+  }
+
+  @override
+  Future<dynamic> updateUser(int id, {String? email, String? name, String? avatar}) async {
+    final result = await request.makeRequest(
+      "${TezdaUrls.users}/$id",
+      mode: NetworkMethod.put,
+      body: {
+        if (email != null && email.isNotEmpty) "email": email,
+        if (name != null && name.isNotEmpty) "name": name,
+        if (avatar != null && avatar.isNotEmpty) "avatar": email,
+      },
+    );
+    storage.store(key: StorageService.userKey, value: result);
+    return result;
   }
 }

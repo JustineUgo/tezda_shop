@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tezda_shop/injection/injection.dart';
 import 'package:tezda_shop/routes/router.gr.dart';
-import 'package:tezda_shop/src/models/user/user_model.dart';
-import 'package:tezda_shop/src/screens/app/home/provider/home_provider.dart';
 import 'package:tezda_shop/src/screens/app/profile/provider/profile_provider.dart';
 import 'package:tezda_shop/src/screens/app/profile/widgets/profile_tile_widget.dart';
 import 'package:tezda_shop/src/services/storage_service.dart';
 import 'package:tezda_shop/src/services/ui_service.dart';
+import 'package:tezda_shop/src/shared/image_widget.dart';
 import 'package:tezda_shop/theme/theme.dart';
 import 'package:tezda_shop/util/assets.dart';
+import 'package:tezda_shop/util/extensions.dart';
 
 @RoutePage()
 class ProfileScreen extends ConsumerStatefulWidget {
@@ -36,16 +36,16 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                 const SizedBox(height: 30),
                 Align(alignment: Alignment.centerLeft, child: Text('Profile', style: context.textTheme.titleLarge)),
                 SizedBox(
-                  height: 200,
+                  height: 300,
                   child: profileInfoAsync.when(
                     loading: () => const SizedBox.shrink(),
                     data: (user) {
-                      print(user);
                       return Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                          SizedBox.square(dimension: 120, child: TezdaImage(image: user.avatar.imageUrl())),
+                          const SizedBox(height: 12),
                           Text(user.name, style: context.textTheme.titleSmall!.copyWith(fontWeight: FontWeight.w400, fontSize: 22)),
-                          const SizedBox(height: 5),
                           Text(user.email, style: context.textTheme.headlineLarge!.copyWith(fontSize: 18)),
                         ],
                       );
@@ -67,11 +67,6 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                       ],
                     ),
                   ),
-                  //  switch (profileState) {
-                  //   AsyncData(:ProfileInfoData user ) => ,
-                  //   AsyncError() => ,
-                  //   _ => const Text('loading'),
-                  // },
                 ),
                 Container(
                   padding: const EdgeInsets.all(20),
@@ -88,7 +83,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                         text: 'Personal Information',
                         icon: TezdaIcons.personalInfoIcon,
                         trailing: const Icon(CupertinoIcons.right_chevron),
-                        onTap: () {},
+                        onTap: () => context.router.push(const ProfileUpdateRoute()),
                       ),
                       ProfileTile(
                         text: 'Version',
