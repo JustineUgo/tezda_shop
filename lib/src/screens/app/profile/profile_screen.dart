@@ -1,8 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tezda_shop/injection/injection.dart';
 import 'package:tezda_shop/routes/router.gr.dart';
+import 'package:tezda_shop/src/models/user/user_model.dart';
+import 'package:tezda_shop/src/screens/app/home/provider/home_provider.dart';
+import 'package:tezda_shop/src/screens/app/profile/provider/profile_provider.dart';
 import 'package:tezda_shop/src/screens/app/profile/widgets/profile_tile_widget.dart';
 import 'package:tezda_shop/src/services/storage_service.dart';
 import 'package:tezda_shop/src/services/ui_service.dart';
@@ -10,16 +14,17 @@ import 'package:tezda_shop/theme/theme.dart';
 import 'package:tezda_shop/util/assets.dart';
 
 @RoutePage()
-class ProfileScreen extends StatefulWidget {
+class ProfileScreen extends ConsumerStatefulWidget {
   const ProfileScreen({super.key});
 
   @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _ProfileScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
+class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
+    final profileInfoAsync = ref.watch(profileInfoProvider);
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -32,15 +37,41 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Align(alignment: Alignment.centerLeft, child: Text('Profile', style: context.textTheme.titleLarge)),
                 SizedBox(
                   height: 200,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('Update your name!', style: context.textTheme.titleSmall!.copyWith(fontWeight: FontWeight.w400, fontSize: 20)),
-                      const SizedBox(height: 10),
-                      Text('tezda@gmail.com', style: context.textTheme.headlineLarge!.copyWith(fontSize: 18)),
-                      Text('+998931256532', style: context.textTheme.titleSmall!.copyWith(fontWeight: FontWeight.w400)),
-                    ],
+                  child: profileInfoAsync.when(
+                    loading: () => const SizedBox.shrink(),
+                    data: (user) {
+                      print(user);
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(user.name, style: context.textTheme.titleSmall!.copyWith(fontWeight: FontWeight.w400, fontSize: 22)),
+                          const SizedBox(height: 5),
+                          Text(user.email, style: context.textTheme.headlineLarge!.copyWith(fontSize: 18)),
+                        ],
+                      );
+                    },
+                    error: (error, stackTrace) => Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: 100,
+                          height: 50,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              ref.invalidate(profileInfoProvider);
+                              ref.read(profileInfoProvider);
+                            },
+                            child: const Text('Retry'),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
+                  //  switch (profileState) {
+                  //   AsyncData(:ProfileInfoData user ) => ,
+                  //   AsyncError() => ,
+                  //   _ => const Text('loading'),
+                  // },
                 ),
                 Container(
                   padding: const EdgeInsets.all(20),
@@ -56,13 +87,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ProfileTile(
                         text: 'Personal Information',
                         icon: TezdaIcons.personalInfoIcon,
-                        trailing: Icon(CupertinoIcons.right_chevron),
+                        trailing: const Icon(CupertinoIcons.right_chevron),
                         onTap: () {},
                       ),
                       ProfileTile(
                         text: 'Version',
                         icon: TezdaIcons.infoIcon,
-                        trailing: Text('Version 1.0'),
+                        trailing: const Text('Version 1.0'),
                         onTap: () {},
                       ),
                       ProfileTile(

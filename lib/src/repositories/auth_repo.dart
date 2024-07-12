@@ -7,6 +7,7 @@ abstract class AuthRepo {
   bool get isAuthenticated;
   Future<dynamic> register({required String name, required String email, required String password});
   Future<dynamic> login({required String email, required String password});
+  Future getUser();
 }
 
 @Singleton(as: AuthRepo)
@@ -48,9 +49,17 @@ class AuthRepoImpl implements AuthRepo {
 
     if (response["access_token"] != null) {
       storage.store(key: StorageService.userAccessTokenKey, value: response["access_token"]);
+      await getUser();
     }
     if (response["refresh_token"] != null) {
       storage.store(key: StorageService.userAccessTokenKey, value: response["refresh_token"]);
     }
+  }
+
+  @override
+  Future getUser() async {
+    final response = await request.makeRequest(TezdaUrls.profile, mode: NetworkMethod.get);
+    response;
+    storage.store(key: StorageService.userKey, value: response);
   }
 }

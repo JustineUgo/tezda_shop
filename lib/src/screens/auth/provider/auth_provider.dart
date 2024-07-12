@@ -17,19 +17,29 @@ class AuthInfo extends _$AuthInfo {
 
   Future<bool> register({required String email, required String name, required String password}) async {
     state = const AsyncLoading();
-    UserModel user = UserModel.fromJson(await _repo.register(name: name, email: email, password: password));
-    user;
-    _ui.showToast(text: 'Registered successfully!', type: ToastType.success);
-    state = AsyncData(AuthInfoData(isRegSuccessful: true, isLoginSuccessful: false));
-    return true;
+    try {
+      UserModel user = UserModel.fromJson(await _repo.register(name: name, email: email, password: password));
+      user;
+      _ui.showToast(text: 'Registered successfully!', type: ToastType.success);
+      state = AsyncData(AuthInfoData(isRegSuccessful: true, isLoginSuccessful: false));
+      return true;
+    } catch (_) {
+      state = AsyncData(AuthInfoData(isRegSuccessful: false, isLoginSuccessful: false));
+      return false;
+    }
   }
 
   Future<bool> login({required String email, required String password}) async {
     state = const AsyncLoading();
-    await _repo.login(email: email, password: password);
-    _ui.showToast(text: 'Welcome!', type: ToastType.success);
-    state = AsyncData(AuthInfoData(isRegSuccessful: false, isLoginSuccessful: true));
-    return true;
+    try {
+      await _repo.login(email: email, password: password);
+      _ui.showToast(text: 'Welcome!', type: ToastType.success);
+      state = AsyncData(AuthInfoData(isRegSuccessful: false, isLoginSuccessful: true));
+      return true;
+    } catch (_) {
+      state = AsyncData(AuthInfoData(isRegSuccessful: false, isLoginSuccessful: false));
+      return false;
+    }
   }
 }
 
