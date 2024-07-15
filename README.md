@@ -1,6 +1,6 @@
 # Tezda Shop
 
-Tezda Shop is a mobile e-commerce application developed as part of an immersive commerce project on Web 3.0. This app allows users to browse and view product listings from a decentralized marketplace, with features such as user authentication, product details, and user-specific functionalities like marking products as favorites.
+Tezda Shop is a mobile e-commerce application which allows users to browse and view product listings from a decentralized marketplace, with features such as user authentication, product details, and user-specific functionalities like marking products as favorites.
 
 ## Table of Contents
 
@@ -55,7 +55,7 @@ To get started with the project, follow these steps:
 
 2. Clone the code:
    ```bash
-   $ git clone https://github.com/yourusername/tezda_shop.git
+   $ git clone https://github.com/justineUgo/tezda_shop.git
    $ cd tezda_shop
     ```
 
@@ -76,7 +76,7 @@ To get started with the project, follow these steps:
   - Tap on a product to navigate to its detailed view.
 
 - **Product Details Screen**:
-  - View additional product information including description and user reviews.
+  - View additional product information including descriptions and user reviews.
 
 - **User Authentication**:
   - Register a new account or log in with existing credentials.
@@ -94,7 +94,7 @@ The app fetches product data from the Fake API provided by Platzi:
 - [Fake API](https://fakeapi.platzi.com/)
 
 ## Screenshots
-Include screenshots of your application to showcase its features and UI.
+Screenshots of the application to showcase its features and UI.
 
   
 ************               |  **********               | **********         
